@@ -3,7 +3,7 @@ import pandas as pd
 
 app = Flask(__name__)
 
-df = pd.read_excel("2026クラス検索データ.xlsx")
+df = pd.read_excel("2026クラス検索データ.xlsx", dtype=str)
 
 @app.route("/", methods=["GET", "POST"])
 def search():
@@ -12,12 +12,12 @@ def search():
 
     if request.method == "POST":
         number = request.form["exam_number"]
+        birth = request.form["birth_date"]
 
-        if not number.isdigit():
-            error = "受験番号は数字で入力してください。"
+        if not number.isdigit() or not birth.isdigit() or len(birth) != 8:
+            error = "受験番号と生年月日（8桁）を正しく入力してください。"
         else:
-            number = int(number)
-            row = df[df["受験番号"] == number]
+            row = df[(df["受験番号"] == number) & (df["生年月日"] == birth)]
 
             if not row.empty:
                 result = {
@@ -28,7 +28,7 @@ def search():
                     "number": row.iloc[0]["出席番号"]
                 }
             else:
-                error = "該当する受験番号が見つかりません。"
+                error = "受験番号または生年月日が正しくありません。"
 
     return render_template("index.html", result=result, error=error)
 
