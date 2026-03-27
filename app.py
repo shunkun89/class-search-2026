@@ -3,7 +3,6 @@ import pandas as pd
 
 app = Flask(__name__)
 
-# Excelデータ読み込み
 df = pd.read_excel("2026クラス検索データ.xlsx")
 
 @app.route("/", methods=["GET", "POST"])
@@ -22,6 +21,9 @@ def search():
 
             if not row.empty:
                 result = {
+                    "sei": row.iloc[0]["姓"],
+                    "mei": row.iloc[0]["名"],
+                    "school": row.iloc[0]["中学校名"],
                     "class": row.iloc[0]["クラス"],
                     "number": row.iloc[0]["出席番号"]
                 }
