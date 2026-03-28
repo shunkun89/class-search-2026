@@ -20,13 +20,14 @@ def search():
             row = df[(df["受験番号"] == number) & (df["生年月日"] == birth)]
 
             if not row.empty:
-                result = {
-                    "sei": row.iloc[0]["姓"],
-                    "mei": row.iloc[0]["名"],
-                    "school": row.iloc[0]["中学校名"],
-                    "class": row.iloc[0]["クラス"],
-                    "number": row.iloc[0]["出席番号"]
-                }
+               result = {
+    "sei": row.iloc[0]["姓"],
+    "mei": row.iloc[0]["名"],
+    "school": row.iloc[0]["中学校名"],
+    "class": row.iloc[0]["クラス"],
+    "number": row.iloc[0]["出席番号"],
+    "room": row.iloc[0]["教室"]
+}
             else:
                 error = "受験番号または生年月日が正しくありません。"
 
