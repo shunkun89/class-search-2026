@@ -56,8 +56,9 @@
     教室は<br>
     <strong>{{ result.room }}</strong> です。<br><br>
 
-    <a href="/2026教室配置(入学式用).pdf" target="_blank">
-        📄 教室配置図はこちら
+   <a href="{{ url_for('static', filename='2026教室配置(入学式用).pdf') }}" target="_blank">
+    📄 教室配置図はこちら
+</a>
     </a>
 </div>
 {% endif %}
